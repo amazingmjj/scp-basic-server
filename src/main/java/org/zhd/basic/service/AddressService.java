@@ -1,0 +1,143 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.mapper.CommMapper;
+import org.xy.api.utils.DaoUtil;
+import org.xy.api.utils.StringUtil;
+import org.zhd.basic.entity.Address;
+import org.zhd.basic.mapper.AddressMapper;
+import org.zhd.basic.util.OriginAddressUtil;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 地址业务层
+ * @author mjj
+ */
+@Service
+public class AddressService implements BaseService<Address,Long> {
+    @Autowired
+    private AddressMapper addressMapper;
+
+    @Autowired
+    private CommMapper commMapper;
+
+    @Override
+    public Address saveOrUpdate(Address model) throws Exception {
+        if (checkAddressName(model)){
+            throw new Exception("地址名称重复!");
+        }
+        //新增
+        if (StringUtil.isEmpty(model.getCode())){
+            String maxCode = commMapper.maxCode("code","t_address");
+            String areaCode = String.format("%06d", (maxCode == null ? 1 : Integer.parseInt(maxCode) + 1));
+            model.setCode(areaCode);
+            addressMapper.insert(model);
+        }else {//修改
+            addressMapper.updateById(model);
+        }
+        return model;
+    }
+
+    @Override
+    public BaseListDto<Address> selectPage(Map<String, Object> params) throws Exception {
+        int currentPage = Integer.parseInt(params.getOrDefault("currentPage", 1).toString());
+        int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+        QueryWrapper<Address> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params,Address.class);
+        IPage<Address> page = addressMapper.selectPage((IPage<Address>) DaoUtil.queryPage(currentPage, pageSize),qw);
+        List<Address> list = page.getRecords().stream().map(item->entity2Dto(item)).collect(Collectors.toList());
+        return new BaseListDto<Address>(list, (int) page.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        addressMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public Address selectById(Long id) throws Exception {
+        return addressMapper.selectById(id);
+    }
+
+    @Override
+    public Address entity2Dto(Object source) {
+        if (source == null) {
+            return null;
+        }
+        Address address = (Address) source;
+        if (!"-1".equals(address.getParentCode())){
+            Address parentAddress = selectByCode(address.getParentCode());
+            address.setParentName(null==parentAddress?"":parentAddress.getName());
+        }
+        return address;
+    }
+
+    public List<Address> queryByParentCode(String parentCode){
+        QueryWrapper<Address> qw = new QueryWrapper<>();
+        qw.eq("parent_code",parentCode);
+        return addressMapper.selectList(qw);
+    }
+
+    public List<Address> queryTreeList(String name,String code){
+        //默认去全部
+        QueryWrapper<Address> qw = new QueryWrapper<>();
+        if (StringUtil.isEmpty(name)&&StringUtil.isEmpty(code)){
+            qw.eq("parent_code",-1);
+        }else {
+            if (StringUtil.isNotEmpty(name)){
+                qw.like("name",name);
+            }
+            if (StringUtil.isNotEmpty(code)){
+                qw.eq("code",code);
+            }
+        }
+        List<Address> returnList = addressMapper.selectList(qw);
+        setChildrenList(returnList);
+        return returnList;
+    }
+
+    private void setChildrenList(List<Address> addressList){
+        if (null!=addressList&&addressList.size()>0){
+            for (Address address : addressList) {
+                QueryWrapper<Address> qw = new QueryWrapper<>();
+                qw.eq("parent_code",address.getCode());
+                List<Address> childrenList = addressMapper.selectList(qw);
+                setChildrenList(childrenList);
+                if (null!=childrenList&&childrenList.size()>0){
+                    address.setChildren(childrenList);
+                }
+            }
+        }
+    }
+
+    private boolean checkAddressName(Address model){
+        QueryWrapper<Address> qw = new QueryWrapper<>();
+        qw.eq("parent_code",model.getParentCode());
+        qw.eq("name",model.getName());
+        Address oldAddress = addressMapper.selectOne(qw);
+        return !(model.getId() == null && oldAddress == null || (null!=model.getId() && (oldAddress == null || oldAddress.getId().equals(model.getId()))));
+    }
+
+    public void insertOriginAddress(){
+        List<Address> dataList = OriginAddressUtil.findOriginAddressList();
+        for (Address address : dataList) {
+            if (!checkAddressName(address)){
+                addressMapper.insert(address);
+            }
+        }
+    }
+
+    public Address selectByCode(String addressCode){
+        QueryWrapper<Address> qw = new QueryWrapper<>();
+        qw.eq("code",addressCode);
+        return addressMapper.selectOne(qw);
+    }
+}
