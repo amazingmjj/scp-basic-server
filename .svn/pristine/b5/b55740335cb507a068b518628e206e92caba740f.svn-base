@@ -1,0 +1,225 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.baomidou.mybatisplus.annotation.*;
+import org.xy.api.enums.StatusEnum;
+
+/**
+ * 员工
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "basic_company")
+@TableName(value = "basic_company")
+@KeySequence("basic_company_seq")
+public class Company implements Serializable {
+    /**
+     * 序列号
+     */
+    @Id
+    @Column(name="company_id")
+    @TableId(value="company_id", type = IdType.INPUT)
+    private Long id;
+    /**
+     * 编号
+     */
+    @Column(name="company_code")
+    @TableField(value="company_code")
+    private String code;
+    /**
+     * 名称
+     */
+    @Column(name="company_name")
+    @TableField(value="company_name")
+    private String name;
+    /**
+     * 简称
+     */
+    @Column(name="company_abbreviate")
+    @TableField(value="company_abbreviate")
+    private String abbreviation;
+    /**
+     * 电话
+     */
+    @Column(name="company_phone")
+    @TableField(value="company_phone")
+    private String phone;
+    /**
+     * 传真号
+     */
+    @Column(name="company_fax")
+    @TableField(value="company_fax")
+    private String fax;
+    /**
+     * 法人
+     */
+    @Column(name="company_corporation")
+    @TableField(value="company_corporation")
+    private String legalPerson;
+    /**
+     * 邮件
+     */
+    @Column(name="company_email")
+    @TableField(value="company_email")
+    private String email;
+    /**
+     * 税号
+     */
+    @Column(name="company_tanu")
+    @TableField(value="company_tanu")
+    private String tfn;
+    /**
+     * 开户名称
+     */
+    private String openAccountName;
+    /**
+     * 开户行
+     */
+    @Column(name="company_bank")
+    @TableField(value="company_bank")
+    private String openBank;
+    /**
+     * 开户账号
+     */
+    @Column(name="company_bankaccounts")
+    @TableField(value="company_bankaccounts")
+    private String openAccount;
+    /**
+     * 省
+     */
+    private String province;
+    /**
+     * 市
+     */
+    private String city;
+    /**
+     * 区
+     */
+    private String area;
+    /**
+     * 地址详情
+     */
+    @Column(name="company_addr")
+    @TableField(value="company_addr")
+    private String address;
+    /**
+     * 邮编
+     */
+    @Column(name="company_postcode")
+    @TableField(value="company_postcode")
+    private String postman;
+    /**
+     * 开票地址
+     */
+    @Column(name="company_invoiceaddr")
+    @TableField(value="company_invoiceaddr")
+    private String billAddr;
+    /**
+     * 单位类型
+     */
+    @Column(name="company_class")
+    @TableField(value="company_class")
+    private String type;
+    /**
+     * 单位性质(0 正式客户 1 公共客户 2 潜在客户)
+     */
+    @Column(name="company_property")
+    @TableField(value="company_property")
+    private Integer property;
+    /**
+     * 业务员编号
+     */
+    private String employeeCode;
+    /**
+     * 业务员名称
+     */
+    private String employeeName;
+    /**
+     * 录入人
+     */
+    @Column(name="operator_code")
+    @TableField(value="operator_code")
+    private String accountCode;
+    /**
+     * 部门编号
+     */
+    @Column(name="dept_code")
+    @TableField(value="dept_code")
+    private String dptCode;
+    /**
+     * 部门名称
+     */
+    private String dptName;
+    /**
+     * 机构编号
+     */
+    private String orgCode;
+    /**
+     * 机构名称
+     */
+    private String orgName;
+    /**
+     * 客户类型(0 企业客户 1 个人客户)
+     */
+    @Column(name="company_type")
+    @TableField(value="company_type")
+    private Integer customerType;
+    /**
+     * 客户性质(0 新客户 1老客户)
+     */
+    @Column(name="company_custype")
+    @TableField(value="company_custype")
+    private Integer customerProperty;
+    /**
+     * 所属行业
+     */
+    @Column(name="company_industry")
+    @TableField(value="company_industry")
+    private String industry;
+    /**
+     * 客户来源
+     */
+    @Column(name="company_source")
+    @TableField(value="company_source")
+    private String source;
+    /**
+     * 状态(ENABLED 启用 DISABLED 停用 FROZON 冻结)
+     */
+    private StatusEnum status;
+    /**
+     * 工作组
+     */
+    @Column(name="company_workgroup")
+    @TableField(value="company_workgroup")
+    private String workGroup;
+    /**
+     * 备注
+     */
+    @Column(name="company_remark")
+    @TableField(value="company_remark")
+    private String remark;
+    /**
+     * 集团编号
+     */
+    private String memberCode;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

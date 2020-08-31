@@ -1,0 +1,48 @@
+package org.zhd.basic.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.xy.api.dpi.basic.OrgGroupDpi;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.OrgGroupDto;
+import org.xy.api.utils.ApiUtil;
+import org.xy.api.utils.DaoUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+
+/**
+ * 机构集团 控制层
+ *
+ * @author samy
+ */
+@RestController
+@RequestMapping("api/basic/orgGroup")
+public class OrgGroupController extends BaseController implements OrgGroupDpi {
+
+    @Override
+    public Map<String, Object> saveOrUpdate(OrgGroupDto model) throws Exception {
+        return ApiUtil.responseDto(orgGroupService.saveOrUpdate(model));
+    }
+
+    @Override
+    public BaseListDto<OrgGroupDto> selectPage(HttpServletRequest request) throws Exception {
+        return orgGroupService.selectPage(DaoUtil.requestMap2Map(request));
+    }
+
+    @Override
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        // FIXME DO DELETE ACTION
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> selectById(Long id) throws Exception {
+        // FIXME DO SELECTBYID ACTION
+        return null;
+    }
+
+    @Override
+    public OrgGroupDto selectByCode(String memberCode) throws Exception {
+        return orgGroupService.selectByCode(memberCode);
+    }
+}

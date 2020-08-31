@@ -1,0 +1,77 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.CompanyDto;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.Company;
+import org.zhd.basic.mapper.CompanyMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 往来单位业务层
+ *
+ * @author samy
+ */
+@Service
+public class CompanyService implements BaseService<CompanyDto, Long> {
+
+    @Autowired
+    private CompanyMapper companyMapper;
+    @Autowired
+    private CompanyContactService companyContactService;
+
+
+    @Override
+    public CompanyDto saveOrUpdate(CompanyDto model) throws Exception {
+        return null;
+    }
+
+    @Override
+    public BaseListDto<CompanyDto> selectPage(Map<String, Object> params) throws Exception {
+        int currentPage = Integer.parseInt(params.getOrDefault("currentPage", 1).toString());
+        int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+        QueryWrapper<Company> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, Company.class);
+        IPage<Company> pages = companyMapper.selectPage((Page<Company>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<CompanyDto> list = pages.getRecords().stream().map(comp -> entity2Dto(comp)).collect(Collectors.toList());
+        return new BaseListDto<CompanyDto>(list, (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        // FIXME DO DELETE ACTION
+    }
+
+    @Override
+    public CompanyDto selectById(Long id) throws Exception {
+        Company model = companyMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public CompanyDto entity2Dto(Object source) {
+        CompanyDto dto = new CompanyDto();
+        BeanUtils.copyProperties(source, dto);
+        dto.setMainLink(companyContactService.selectByCompanyMainContact(dto.getCode()));
+        return dto;
+    }
+
+    /**
+     * 查询内部单位
+     */
+    public BaseListDto<CompanyDto> selectInnerCompany(){
+        List<CompanyDto> list = companyMapper.selectNewInnerCompany().stream().map(comp -> entity2Dto(comp)).collect(Collectors.toList());
+        return new BaseListDto<>(list, list.size());
+    }
+
+}

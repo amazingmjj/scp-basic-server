@@ -1,0 +1,105 @@
+package org.zhd.basic.entity;
+
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
+import org.xy.api.enums.SexEnum;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 往来单位(客户)联系人
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "t_company_contact")
+@TableName(value = "t_company_contact")
+@KeySequence("t_company_contact_seq")
+public class CompanyContact implements Serializable{
+    /**
+     * 序列号
+     */
+    @Id
+    @TableId(type = IdType.INPUT)
+    private Long id;
+    /**
+     * 编号
+     */
+    private String code;
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 电话
+     */
+    private String phone;
+    /**
+     * QQ
+     */
+    private String qq;
+    /**
+     * MSN
+     */
+    private String msn;
+    /**
+     * 传真号
+     */
+    private String fax;
+    /**
+     * 邮件
+     */
+    private String email;
+    /**
+     * 微信openId(页面不能显示)
+     */
+    private String wxOpenId;
+    /**
+     * 微信昵称
+     */
+    private String wxNickname;
+    /**
+     * 单位代码
+     */
+    private String companyCode;
+    /**
+     * 备注
+     */
+    private String remark;
+    /**
+     * 机构代码
+     */
+    private String orgCode;
+    /**
+     * 录入人
+     */
+    private String accountCode;
+    /**
+     * 性别(MALE 男 FEMALE 女 SECRET 保密)
+     */
+    private SexEnum sex;
+    /**
+     * 手机号
+     */
+    private String mobile;
+    /**
+     * 主联系人标记(1 主联系人 0 非主联系人)
+     */
+    private Integer mainMark;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

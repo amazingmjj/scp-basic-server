@@ -1,0 +1,121 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.baomidou.mybatisplus.annotation.*;
+import org.xy.api.enums.SexEnum;
+
+/**
+ * 往来单位(客户)联系人
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "basic_company_linkman")
+@TableName(value = "basic_company_linkman")
+@KeySequence("basic_company_linkman_seq")
+public class CompanyContact implements Serializable {
+    /**
+     * 序列号
+     */
+    @Id
+    @Column(name = "company_linkman_id")
+    @TableId(value = "company_linkman_id", type = IdType.INPUT)
+    private Long id;
+    /**
+     * 姓名
+     */
+    @Column(name = "company_linkman_name")
+    @TableField(value = "company_linkman_name")
+    private String name;
+    /**
+     * 电话
+     */
+    @Column(name = "company_linkman_phone")
+    @TableField(value = "company_linkman_phone")
+    private String phone;
+    /**
+     * QQ
+     */
+    @Column(name = "company_linkman_qq")
+    @TableField(value = "company_linkman_qq")
+    private String qq;
+    /**
+     * MSN
+     */
+    @Column(name = "company_linkman_msn")
+    @TableField(value = "company_linkman_msn")
+    private String msn;
+    /**
+     * 传真号
+     */
+    @Column(name = "company_linkman_fax")
+    @TableField(value = "company_linkman_fax")
+    private String fax;
+    /**
+     * 邮件
+     */
+    @Column(name = "company_linkman_email")
+    @TableField(value = "company_linkman_email")
+    private String email;
+    /**
+     * 微信openId(页面不能显示)
+     */
+    private String wxOpenId;
+    /**
+     * 微信昵称
+     */
+    private String wxNickname;
+    /**
+     * 单位代码
+     */
+    private String companyCode;
+    /**
+     * 备注
+     */
+    @Column(name = "company_linkman_remark")
+    @TableField(value = "company_linkman_remark")
+    private String remark;
+    /**
+     * 机构代码
+     */
+    private String orgCode;
+    /**
+     * 录入人
+     */
+    @Column(name = "operator_code")
+    @TableField(value = "operator_code")
+    private String accountCode;
+    /**
+     * 性别(MALE 男 FEMALE 女 SECRET 保密)
+     */
+    private SexEnum sex;
+    /**
+     * 手机号
+     */
+    @Column(name = "company_linkman_mobile")
+    @TableField(value = "company_linkman_mobile")
+    private String mobile;
+    /**
+     * 主联系人标记(1 主联系人 0 非主联系人)
+     */
+    private Integer mainMark;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

@@ -1,0 +1,104 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.GoodsDto;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.Goods;
+import org.zhd.basic.mapper.GoodsMapper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 物资业务层
+ *
+ * @author samy
+ */
+@Service
+public class GoodsService implements BaseService<GoodsDto, Long> {
+
+    @Autowired
+    private GoodsMapper goodsMapper;
+
+    @Override
+    public GoodsDto saveOrUpdate(GoodsDto model) throws Exception {
+        // FIXME DO SAVE ACTION
+        return null;
+    }
+
+    @Override
+    public BaseListDto<GoodsDto> selectPage(Map<String, Object> params) throws Exception {
+        int currentPage = (int) params.getOrDefault("currentPage", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 10);
+        QueryWrapper<Goods> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, Goods.class);
+        IPage<Goods> pages = goodsMapper.selectPage((Page<Goods>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<GoodsDto> list = pages.getRecords().stream().map(entity -> entity2Dto(entity)).collect(Collectors.toList());
+        return new BaseListDto<GoodsDto>(list, (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        // FIXME DO DELETE ACTION
+    }
+
+    @Override
+    public GoodsDto selectById(Long id) throws Exception {
+        Goods model = goodsMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public GoodsDto entity2Dto(Object source) {
+        // FIXME CHANGE VALUE IN FACT REQUIREMENT
+        GoodsDto dto = new GoodsDto();
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public BaseListDto<GoodsDto> selectGoods(Map<String, Object> params) {
+        if (params.get("memberCode") == null || params.get("name") == null) {
+            return null;
+        }
+        int currentPage = (int) params.getOrDefault("currentPage", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 10);
+        IPage<Goods> pages = goodsMapper.selectGoods((Page<Goods>) DaoUtil.queryPage(currentPage, pageSize), params.get("memberCode").toString(), params.get("name").toString());
+        return new BaseListDto<GoodsDto>(pages.getRecords().stream().map(this::entity2Dto).collect(Collectors.toList()), (int) pages.getTotal());
+    }
+
+    /**
+     * 获取品名大类树
+     *
+     * @param memberCode
+     * @return
+     */
+    public List<Map<String, Object>> parentTree(String memberCode) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        List<String> parentList = goodsMapper.parentNames(memberCode);
+        for (String str : parentList) {
+            Map<String, Object> parentMap = new HashMap<>();
+            parentMap.put("text", str);
+            List<Map<String, Object>> subListMap = new ArrayList<>();
+            List<String> subList = goodsMapper.subNames(memberCode, str);
+            for (String sub : subList) {
+                Map<String, Object> subMap = new HashMap<>();
+                subMap.put("text", sub);
+                subMap.put("children", new ArrayList<>());
+                subListMap.add(subMap);
+            }
+            parentMap.put("children", subListMap);
+            list.add(parentMap);
+        }
+        return list;
+    }
+}

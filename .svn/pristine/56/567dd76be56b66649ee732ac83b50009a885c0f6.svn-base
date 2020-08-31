@@ -1,0 +1,31 @@
+package org.zhd.basic.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.zhd.basic.service.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+/**
+ * @author Administrator
+ */
+public class BaseController {
+    @Autowired
+    protected HttpServletRequest request;
+    @Autowired
+    protected DataDictService dataDictService;
+    @Autowired
+    protected OrgGroupService orgGroupService;
+    @Autowired
+    protected OrgService orgService;
+    @Autowired
+    protected DptService dptService;
+    @Autowired
+    protected CompanyService companyService;
+    @Autowired
+    protected CompanyContactService companyContactService;
+    @Autowired
+    protected GoodsService goodsService;
+    @Autowired
+    protected EmployeeService employeeService;
+}

@@ -1,0 +1,51 @@
+package org.zhd.basic.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.xy.api.dpi.basic.DataDictDpi;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.DataDictDto;
+import org.xy.api.utils.ApiUtil;
+import org.xy.api.utils.DaoUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 数据字典 控制层
+ *
+ * @author samy
+ */
+@RestController
+@RequestMapping("api/basic/dataDict")
+public class DataDictController extends BaseController implements DataDictDpi {
+
+    @Override
+    public Map<String, Object> saveOrUpdate(DataDictDto model) throws Exception {
+        // FIXME DO SAVEORUPDATE ACTION
+        return null;
+    }
+
+    @Override
+    public BaseListDto<DataDictDto> selectPage(HttpServletRequest request) throws Exception {
+        return dataDictService.selectPage(DaoUtil.requestMap2Map(request));
+    }
+
+    @Override
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        dataDictService.delete(ids);
+        return ApiUtil.responseCode();
+    }
+
+    @Override
+    public Map<String, Object> selectById(Long id) throws Exception {
+        return ApiUtil.responseDto(dataDictService.selectById(id));
+    }
+
+    @GetMapping("className")
+    public BaseListDto<DataDictDto> selectByClassName(String className) {
+        return dataDictService.selectByClassName(className);
+    }
+}

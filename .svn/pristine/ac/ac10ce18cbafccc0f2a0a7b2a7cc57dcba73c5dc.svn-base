@@ -1,0 +1,91 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import com.baomidou.mybatisplus.annotation.*;
+
+/**
+* 品名
+*
+* @author samy
+*/
+@Data
+@Entity
+@Table(name = "t_goods_name")
+@TableName(value = "t_goods_name")
+@KeySequence("t_goods_name_seq")
+public class GoodsName implements Serializable{
+    /**
+    * 序列号
+    */
+    @Id
+    @TableId(type = IdType.INPUT)
+    private Long id;
+    /**
+    * 编号
+    */
+    private String code;
+    /**
+    * 集团编号
+    */
+    private String memberCode;
+    /**
+    * 品名大类
+    */
+    private String parentName;
+    /**
+    * 品名大类编号
+    */
+    private String parentCode;
+    /**
+    * 品名
+    */
+    private String name;
+    /**
+    * 助记码
+    */
+    private String mnemonicCode;
+    /**
+    * 税率
+    */
+    private Double taxRate;
+    /**
+    * 计件模式
+    */
+    private String incentiveMode;
+    /**
+    * 计重模式
+    */
+    private String weightMode;
+    /**
+    * 计量方式
+    */
+    private String measureWay;
+    /**
+    * 计价方式
+    */
+    private String priceWay;
+    /**
+    * 物资属性
+    */
+    private String goodsProperty;
+    /**
+    * 备注
+    */
+    private String remark;
+    /**
+    * 创建时间(系统自动记录)
+    */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+    * 更新时间(系统自动记录)
+    */
+    @TableField(fill = FieldFill.UPDATE)
+    private Date updateAt;
+}

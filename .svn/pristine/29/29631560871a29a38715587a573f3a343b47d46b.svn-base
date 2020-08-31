@@ -1,0 +1,165 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.baomidou.mybatisplus.annotation.*;
+import org.xy.api.enums.StatusEnum;
+
+/**
+ * 物资
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "basic_goodscode")
+@TableName(value = "basic_goodscode")
+@KeySequence("basic_goodscode_seq")
+public class Goods implements Serializable {
+    /**
+     * 序列号
+     */
+    @Id
+    @Column(name = "goodscode_id")
+    @TableId(value = "goodscode_id", type = IdType.INPUT)
+    private Long id;
+    /**
+     * 编号
+     */
+    @Column(name = "goodscode_code")
+    @TableField(value = "goodscode_code")
+    private String code;
+    /**
+     * 集团编号
+     */
+    private String memberCode;
+    /**
+     * 品名大类
+     */
+    @Column(name = "pntree_name")
+    @TableField(value = "pntree_name")
+    private String parentName;
+    /**
+     * 品名
+     */
+    @Column(name = "partsname_name")
+    @TableField(value = "partsname_name")
+    private String name;
+    /**
+     * 规格
+     */
+    @Column(name = "goods_spec")
+    @TableField(value = "goods_spec")
+    private String spec;
+    /**
+     * 材质
+     */
+    @Column(name = "goods_material")
+    @TableField(value = "goods_material")
+    private String material;
+    /**
+     * 产地
+     */
+    @Column(name = "productarea_name")
+    @TableField(value = "productarea_name")
+    private String area;
+    /**
+     * 重量范围
+     */
+    @Column(name = "zlfw")
+    @TableField(value = "zlfw")
+    private String weightRange;
+    /**
+     * 公差范围
+     */
+    @Column(name = "gcfw")
+    @TableField(value = "gcfw")
+    private String toleranceRange;
+    /**
+     * 厚度
+     */
+    @Column(name = "wzhd")
+    @TableField(value = "wzhd")
+    private String thickness;
+    /**
+     * 长度
+     */
+    @Column(name = "goods_property1")
+    @TableField(value = "goods_property1")
+    private String length;
+    /**
+     * 厂发米重
+     */
+    @Column(name = "goods_pmeterweight")
+    @TableField(value = "goods_pmeterweight")
+    private Double perWeight;
+    /**
+     * 数量单位
+     */
+    @Column(name = "partsname_numunit")
+    @TableField(value = "partsname_numunit")
+    private String numUnit;
+    /**
+     * 重量单位
+     */
+    @Column(name = "partsname_weightunit")
+    @TableField(value = "partsname_weightunit")
+    private String weightUnit;
+    /**
+     * 计量方式
+     */
+    @Column(name = "goods_metering")
+    @TableField(value = "goods_metering")
+    private String measure;
+    /**
+     * 税率
+     */
+    @Column(name = "goods_taxrate")
+    @TableField(value = "goods_taxrate")
+    private String taxRate;
+    /**
+     * 98标米重
+     */
+    @Column(name = "m98s_weight")
+    @TableField(value = "m98s_weight")
+    private Double m98MeterWeight;
+    /**
+     * 98标理重
+     */
+    @Column(name = "l98s_weight")
+    @TableField(value = "l98s_weight")
+    private Double c98Weight;
+    /**
+     * 10标米重
+     */
+    @Column(name = "m10s_weight")
+    @TableField(value = "m10s_weight")
+    private Double m10MeterWeight;
+    /**
+     * 10标理重
+     */
+    @Column(name = "l10s_weight")
+    @TableField(value = "l10s_weight")
+    private Double c10Weight;
+    /**
+     * 状态(ENABLED 启用 DISABLED 停用 FROZON 冻结)
+     */
+    private StatusEnum status;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

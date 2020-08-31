@@ -1,0 +1,24 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+import org.zhd.basic.entity.Company;
+
+import java.util.List;
+
+/**
+* 员工数据层
+*
+* @author samy
+*/
+public interface CompanyMapper extends BaseMapper<Company> {
+
+
+    /**
+     * 查询未被关联的内部单位
+     * @return
+     */
+    @Select("select * from t_company t where t.property=3 and t.code not in " +
+            "(select a.code from t_org a where a.company_code is not null)")
+    List<Company> selectNewInnerCompany();
+}

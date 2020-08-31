@@ -1,0 +1,134 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.baomidou.mybatisplus.annotation.*;
+import org.xy.api.enums.StatusEnum;
+
+/**
+ * 物资
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "t_goods")
+@TableName(value = "t_goods")
+@KeySequence("t_goods_seq")
+public class Goods implements Serializable {
+    /**
+     * 序列号
+     */
+    @Id
+    @TableId(type = IdType.INPUT)
+    private Long id;
+    /**
+     * 编号
+     */
+    private String code;
+    /**
+     * 集团编号
+     */
+    private String memberCode;
+    /**
+     * 品名大类
+     */
+    private String parentName;
+    /**
+     * 品名
+     */
+    private String name;
+    /**
+     * 规格
+     */
+    private String spec;
+    /**
+     * 材质
+     */
+    private String material;
+    /**
+     * 产地
+     */
+    private String area;
+    /**
+     * 重量范围
+     */
+    private String weightRange;
+    /**
+     * 公差范围
+     */
+    private String toleranceRange;
+    /**
+     * 厚度
+     */
+    private String thickness;
+    /**
+     * 长度
+     */
+    private String length;
+    /**
+     * 厂发米重
+     */
+    private Double perWeight;
+    /**
+     * 数量单位
+     */
+    private String numUnit;
+    /**
+     * 重量单位
+     */
+    private String weightUnit;
+    /**
+     * 计量方式
+     */
+    private String measure;
+    /**
+     * 税率
+     */
+    private String taxRate;
+    /**
+     * 98标米重
+     */
+    @Column(name = "m98_meter_weight")
+    @TableField(value = "m98_meter_weight")
+    private Double m98MeterWeight;
+    /**
+     * 98标理重
+     */
+    @Column(name = "c98_weight")
+    @TableField(value = "c98_weight")
+    private Double c98Weight;
+    /**
+     * 10标米重
+     */
+    @Column(name = "m10_meter_weight")
+    @TableField(value = "m10_meter_weight")
+    private Double m10MeterWeight;
+    /**
+     * 10标理重
+     */
+    @Column(name = "c10_weight")
+    @TableField(value = "c10_weight")
+    private Double c10Weight;
+    /**
+     * 状态(ENABLED 启用 DISABLED 停用 FROZON 冻结)
+     */
+    private StatusEnum status;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b5492bc5-3601-4bdf-8551-322a7e8edfec" name="Default Changelist" comment="新增产地设置">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zhd/basic/util/GeneratorFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zhd/basic/util/GeneratorFile.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="provider/invalid/Spring" />
+      <facet id="provider/invalid/Web" />
+    </ignored-facets>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/apache-maven-3.3.3" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.3.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1WVh0yus6oJrnaWdgSYOXIifNJp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4" value="4" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="307" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="306" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="307" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="306" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../git/scp-purchase-server" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace_idea\scp-basic-server\src\main\resources" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace_idea\scp-basic-server\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.provider [spring-boot:run]">
+    <configuration name="GeneratorFile" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.zhd.basic.util.GeneratorFile" />
+      <module name="provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.zhd.basic.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="provider [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="provider [spring-boot:start]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:start" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="ScpBasicServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="provider" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.zhd.basic.ScpBasicServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.provider [spring-boot:run]" />
+        <item itemvalue="Maven.provider [spring-boot:start]" />
+        <item itemvalue="Application.GeneratorFile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\lenovo\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspace_idea\scp-basic-server" />
+          <option name="myCopyRoot" value="D:\workspace_idea\scp-basic-server" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspace_idea\scp-basic-server" />
+          <option name="myCopyRoot" value="D:\workspace_idea\scp-basic-server" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b5492bc5-3601-4bdf-8551-322a7e8edfec" name="Default Changelist" comment="" />
+      <created>1577264094010</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577264094010</updated>
+      <workItem from="1577264095278" duration="795000" />
+      <workItem from="1577325427507" duration="12496000" />
+      <workItem from="1577405169044" duration="841000" />
+      <workItem from="1577584303324" duration="1717000" />
+      <workItem from="1577592650421" duration="4782000" />
+      <workItem from="1577665081783" duration="736000" />
+      <workItem from="1577755443239" duration="3333000" />
+      <workItem from="1577924051434" duration="1210000" />
+      <workItem from="1578017694292" duration="861000" />
+      <workItem from="1578269811046" duration="1250000" />
+      <workItem from="1579241364758" duration="21944000" />
+      <workItem from="1579306685048" duration="34958000" />
+      <workItem from="1579392952153" duration="10763000" />
+      <workItem from="1579484245997" duration="287000" />
+      <workItem from="1579488526174" duration="456000" />
+      <workItem from="1579489074945" duration="130000" />
+      <workItem from="1579500388706" duration="857000" />
+      <workItem from="1579513954960" duration="1823000" />
+      <workItem from="1579565578979" duration="877000" />
+      <workItem from="1579582096532" duration="8296000" />
+      <workItem from="1579652048511" duration="12250000" />
+      <workItem from="1579743425300" duration="7857000" />
+      <workItem from="1581298942973" duration="1661000" />
+    </task>
+    <task id="LOCAL-00001" summary="部门设置">
+      <created>1579402631987</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1579402631987</updated>
+    </task>
+    <task id="LOCAL-00002" summary="部门设置(id自增)">
+      <created>1579489178111</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579489178111</updated>
+    </task>
+    <task id="LOCAL-00003" summary="新增产地设置">
+      <created>1579770768211</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1579770768211</updated>
+    </task>
+    <task id="LOCAL-00004" summary="机构新增内部单位">
+      <created>1583219004627</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583219004627</updated>
+    </task>
+    <task id="LOCAL-00005" summary="机构新增根据code查询的接口">
+      <created>1583313154586</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583313154586</updated>
+    </task>
+    <task id="LOCAL-00006" summary="新增产地设置">
+      <created>1583744947264</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583744947264</updated>
+    </task>
+    <task id="LOCAL-00007" summary="物资代码查询fix">
+      <created>1584522897443</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1584522897443</updated>
+    </task>
+    <task id="LOCAL-00008" summary="部门设置">
+      <created>1584689815490</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1584689815491</updated>
+    </task>
+    <task id="LOCAL-00009" summary="物资代码设置">
+      <created>1585041808190</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585041808190</updated>
+    </task>
+    <task id="LOCAL-00010" summary="数据字典设置">
+      <created>1586566131455</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1586566131455</updated>
+    </task>
+    <task id="LOCAL-00011" summary="品名设置优化">
+      <created>1586856312459</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1586856312459</updated>
+    </task>
+    <task id="LOCAL-00012" summary="地址设置">
+      <created>1587014213407</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587014213407</updated>
+    </task>
+    <task id="LOCAL-00013" summary="地址设置">
+      <created>1587114785261</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1587114785261</updated>
+    </task>
+    <task id="LOCAL-00014" summary="地址根据name、code查询">
+      <created>1587373736356</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1587373736356</updated>
+    </task>
+    <task id="LOCAL-00015" summary="新增地址设置">
+      <created>1587433678392</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1587433678392</updated>
+    </task>
+    <task id="LOCAL-00016" summary="数据字典数据初始化">
+      <created>1587800936023</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1587800936023</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="130180000" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="部门设置(id自增)" />
+    <MESSAGE value="机构新增内部单位" />
+    <MESSAGE value="机构新增根据code查询的接口" />
+    <MESSAGE value="新增产地设置" />
+    <MESSAGE value="物资代码查询fix" />
+    <MESSAGE value="部门设置" />
+    <MESSAGE value="物资代码设置" />
+    <MESSAGE value="数据字典设置" />
+    <MESSAGE value="品名设置优化" />
+    <MESSAGE value="地址设置" />
+    <MESSAGE value="地址根据name、code查询" />
+    <MESSAGE value="新增地址设置" />
+    <MESSAGE value="数据字典数据初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="数据字典数据初始化" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="277" key="FileChooserDialogImpl" timestamp="1598852650740">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1598852650740" />
+    <state x="600" y="216" key="NewModule_or_Project.wizard" timestamp="1598851274115">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="600" y="216" key="NewModule_or_Project.wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1598851274115" />
+    <state x="773" y="364" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594717006264">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="773" y="364" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1594717006264" />
+    <state x="765" y="425" key="svn.upgradeDialog" timestamp="1598851352228">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="425" key="svn.upgradeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598851352228" />
+    <state x="725" y="394" key="svn4idea.checkout.options" timestamp="1598851351003">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="725" y="394" key="svn4idea.checkout.options/0.0.1920.1040@0.0.1920.1040" timestamp="1598851351003" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

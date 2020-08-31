@@ -1,0 +1,19 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+import org.zhd.basic.entity.OrgGroup;
+
+/**
+ * @author juny
+ */
+public interface OrgGroupMapper extends BaseMapper<OrgGroup> {
+    /**
+     * 根据code查询实体类
+     *
+     * @param code
+     * @return
+     */
+    @Select("select * from basic_org_group where member_code=#{code}")
+    OrgGroup selectByCode(String code);
+}

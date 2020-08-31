@@ -1,0 +1,59 @@
+package org.zhd.basic.service;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.DptDto;
+import org.zhd.basic.entity.Dpt;
+import org.zhd.basic.mapper.DptMapper;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 部门业务处理类
+ *
+ * @author juny
+ */
+@Service
+public class DptService implements BaseService<DptDto, Long> {
+    @Autowired
+    private OrgService orgService;
+
+    @Autowired
+    private DptMapper dptMapper;
+
+    @Override
+    public DptDto saveOrUpdate(DptDto model) throws Exception {
+        return null;
+    }
+
+    @Override
+    public BaseListDto<DptDto> selectPage(Map<String, Object> params) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+
+    }
+
+    @Override
+    public DptDto selectById(Long id) throws Exception {
+        Dpt dpt = dptMapper.selectById(id);
+        return entity2Dto(dpt);
+    }
+
+    @Override
+    public DptDto entity2Dto(Object source) {
+        Dpt dpt = (Dpt) source;
+        List<String> codes = Arrays.asList(dpt.getOrgCode().split(","));
+        DptDto dto = new DptDto();
+        BeanUtils.copyProperties(dpt, dto);
+        dto.setOrgs(orgService.selectByCodes(codes));
+        return dto;
+    }
+}

@@ -1,0 +1,30 @@
+server:
+  port: 8802
+
+spring:
+  application:
+    name: basic-data-provider
+  profiles:
+    active:
+      - dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle10gDialect
+#        dialect: org.hibernate.dialect.MySQL5Dialect
+
+mybatis-plus:
+  #  typeHandlersPackage: org.xy.api.enums
+  type-enums-package: org.xy.api.enums
+  mapper-locations:
+    - classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: org.zhd.basic.entity
+
+feign:
+  hystrix:
+    enabled: true

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口注册-->
+<mapper namespace="org.zhd.basic.mapper.GoodsMapper">
+    <resultMap id="goodsPojo" type="org.zhd.basic.entity.Goods">
+        <id property="id" column="goodscode_id"></id>
+        <result property="memberCode" column="member_code"></result>
+        <result property="parentName" column="pntree_name"></result>
+        <result property="code" column="goodscode_code"></result>
+        <result property="name" column="partsname_name"></result>
+        <result property="spec" column="goods_spec"></result>
+        <result property="material" column="goods_material"></result>
+        <result property="area" column="productarea_name"></result>
+        <result property="weightRange" column="zlfw"></result>
+        <result property="toleranceRange" column="gcfw"></result>
+        <result property="thickness" column="wzhd"></result>
+        <result property="length" column="goods_property1"></result>
+        <result property="perWeight" column="goods_pmeterweight"></result>
+        <result property="numUnit" column="partsname_numunit"></result>
+        <result property="weightUnit" column="partsname_weightunit"></result>
+        <result property="measure" column="goods_metering"></result>
+        <result property="taxRate" column="goods_taxrate"></result>
+        <result property="m98MeterWeight" column="m98s_weight"></result>
+        <result property="c98Weight" column="l98s_weight"></result>
+        <result property="m10MeterWeight" column="m10s_weight"></result>
+        <result property="c10Weight" column="l10s_weight"></result>
+        <result property="status" column="status"></result>
+        <result property="createAt" column="create_at"></result>
+        <result property="updateAt" column="update_at"></result>
+    </resultMap>
+
+
+</mapper>

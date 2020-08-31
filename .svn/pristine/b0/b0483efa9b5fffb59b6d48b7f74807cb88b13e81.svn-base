@@ -1,0 +1,69 @@
+package org.zhd.basic.controller;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.utils.ApiUtil;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.Address;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 地区 控制层
+ *
+ * @author samy
+ */
+@RestController
+public class AddressController extends BaseController{
+    @Transactional(rollbackOn = Exception.class)
+    @PostMapping("api/basic/address")
+    public Map<String, Object> saveOrUpdate(Address model) throws Exception {
+        return ApiUtil.responseDto(addressService.saveOrUpdate(model));
+    }
+
+    /**
+     * 当前页面 currentPage 1(第一页)
+     * 页面行数 pageSize(页面行数)
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("api/basic/address/list")
+    public BaseListDto<Address> selectPage(HttpServletRequest request) throws Exception {
+        return addressService.selectPage(DaoUtil.requestMap2Map(request));
+    }
+
+    @DeleteMapping("api/basic/address")
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        addressService.delete(ids);
+        return ApiUtil.responseCode();
+    }
+
+    /**
+     * 返回树状层级关系的地址
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("api/basic/address/queryCombo")
+    public List<Address> queryCombo(HttpServletRequest request) throws Exception{
+        return addressService.queryTreeList(DaoUtil.requestMap2Map(request));
+    }
+
+    /**
+     * 初始化地址
+     * @param request
+     * @return
+     */
+    @PostMapping("api/basic/address/initAddress")
+    public Map<String, Object> initAddress(HttpServletRequest request){
+        addressService.insertOriginAddress();
+        return ApiUtil.responseCode();
+    }
+}

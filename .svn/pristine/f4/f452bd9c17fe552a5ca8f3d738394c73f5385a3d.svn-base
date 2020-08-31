@@ -1,0 +1,33 @@
+package org.zhd.basic.hystrix;
+
+import org.springframework.stereotype.Component;
+import org.xy.api.dto.account.RoleDto;
+import org.xy.api.hystrix.account.RoleHystrix;
+import org.xy.api.enums.ApiEnum;
+import org.xy.api.utils.ApiUtil;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+* 角色数据熔断层
+*
+* @author samy
+*/
+@Component
+public class RoleHystrixImpl extends RoleHystrix {
+    @Override
+    public Map<String, Object> saveOrUpdate(RoleDto model) throws Exception {
+        return ApiUtil.responseCode(null, ApiEnum.FAILURE, "account模块Role微服务中断");
+    }
+
+    @Override
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        return ApiUtil.responseCode(null, ApiEnum.FAILURE, "account模块Role微服务中断");
+    }
+
+    @Override
+    public Map<String, Object> selectById(Long id) throws Exception {
+        return ApiUtil.responseCode(null, ApiEnum.FAILURE, "account模块Role微服务中断");
+    }
+}

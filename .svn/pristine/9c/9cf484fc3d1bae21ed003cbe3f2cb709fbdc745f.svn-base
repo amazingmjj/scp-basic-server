@@ -1,0 +1,67 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dpi.account.RoleDpi;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.CompanyContactDto;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.CompanyContact;
+import org.zhd.basic.mapper.CompanyContactMapper;
+
+import java.util.*;
+
+/**
+ * 往来单位(客户)联系人业务层
+ *
+ * @author samy
+ */
+@Service
+public class CompanyContactService implements BaseService<CompanyContactDto, Long> {
+
+    @Autowired
+    private CompanyContactMapper companyContactMapper;
+
+    @Override
+    public CompanyContactDto saveOrUpdate(CompanyContactDto model) throws Exception {
+        return null;
+    }
+
+    @Override
+    public BaseListDto<CompanyContactDto> selectPage(Map<String, Object> params) throws Exception {
+        // FIXME DO SELECTPAGE ACTION
+        return null;
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        companyContactMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public CompanyContactDto selectById(Long id) throws Exception {
+        CompanyContact model = companyContactMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public CompanyContactDto entity2Dto(Object source) {
+        CompanyContactDto dto = new CompanyContactDto();
+        if (source == null) {
+            return null;
+        }
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public CompanyContactDto selectByCompanyMainContact(String companyCode) {
+        QueryWrapper<CompanyContact> qw = new QueryWrapper<>();
+        qw.eq("company_code", companyCode);
+        qw.eq("main_mark", 1);
+        CompanyContact companyContact = companyContactMapper.selectOne(qw);
+        return entity2Dto(companyContact);
+    }
+}

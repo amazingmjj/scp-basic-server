@@ -1,0 +1,10 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.zhd.basic.entity.Dpt;
+
+/**
+ * @author juny
+ */
+public interface DptMapper extends BaseMapper<Dpt> {
+}

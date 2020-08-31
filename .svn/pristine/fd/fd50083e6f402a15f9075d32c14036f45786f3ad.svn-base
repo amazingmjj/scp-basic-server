@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口注册-->
+<mapper namespace="org.zhd.basic.mapper.DataDictMapper">
+<!--    <select id="selectByClassName" resultMap="dataDictPojo" parameterType="String">-->
+<!--        select * from system_dd where dd_classtext=#{className}-->
+<!--    </select>-->
+
+    <resultMap id="dataDictPojo" type="org.zhd.basic.entity.DataDict">
+        <id property="id" column="dd_id"></id>
+        <result property="memberCode" column="member_code"></result>
+        <result property="classNameCode" column="dd_class"></result>
+        <result property="className" column="dd_classtext"></result>
+        <result property="name" column="dd_name"></result>
+        <result property="value" column="dd_text"></result>
+        <result property="remark" column="dd_remark"></result>
+        <result property="ddOrder" column="dd_order"></result>
+        <result property="type" column="dd_type"></result>
+        <result property="canShow" column="dd_show"></result>
+    </resultMap>
+
+
+</mapper>

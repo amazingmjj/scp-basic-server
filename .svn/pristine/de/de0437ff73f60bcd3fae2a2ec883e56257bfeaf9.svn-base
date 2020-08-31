@@ -1,0 +1,24 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import org.zhd.basic.entity.Org;
+
+import java.util.List;
+
+/**
+ * @author juny
+ */
+public interface OrgMapper extends BaseMapper<Org> {
+    /**
+     * 根据机构编号查找列表
+     *
+     * @param codes
+     * @return
+     */
+    @Select("select * from basic_org where org_code in ${codes}")
+    @ResultMap("orgPojo")
+    List<Org> selectByCodes(@Param("codes") String[] codes);
+}

@@ -1,0 +1,104 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.OrgGroupDto;
+import org.xy.api.mapper.CommMapper;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.OrgGroup;
+import org.zhd.basic.mapper.OrgGroupMapper;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 集团业务处理类
+ *
+ * @author juny
+ */
+@Service
+public class OrgGroupService implements BaseService<OrgGroupDto, Long> {
+    @Autowired
+    private OrgGroupMapper orgGroupMapper;
+
+    @Autowired
+    private CommMapper commMapper;
+
+    public OrgGroupDto selectByCode(String memberCode) throws Exception {
+        OrgGroup orgGroup = orgGroupMapper.selectByCode(memberCode);
+        if (orgGroup == null) {
+            return null;
+        } else {
+            OrgGroupDto dto = new OrgGroupDto();
+            BeanUtils.copyProperties(orgGroup, dto);
+            return dto;
+        }
+    }
+
+    @Override
+    public OrgGroupDto saveOrUpdate(OrgGroupDto model) throws Exception {
+        if (model.getMemberCode() == null) {
+            throw new Exception("编号不能为空");
+        }
+        if (model.getMemberName() == null) {
+            throw new Exception("名称不能为空");
+        }
+        OrgGroup og = orgGroupMapper.selectByCode(model.getMemberCode());
+        OrgGroup orgGroup = new OrgGroup();
+        BeanUtils.copyProperties(model, orgGroup);
+        if (model.getId() == null) {
+            // 新增
+            if (og == null) {
+                orgGroupMapper.insert(orgGroup);
+            } else {
+                throw new Exception("数据异常");
+            }
+        } else {
+            // 更新
+            if (og == null || og.getId().equals(model.getId())) {
+                orgGroupMapper.updateById(orgGroup);
+            } else {
+                throw new Exception("更新失败");
+            }
+        }
+        return this.entity2Dto(orgGroup);
+    }
+
+    @Override
+    public BaseListDto<OrgGroupDto> selectPage(Map<String, Object> params) {
+        int currentPage = (int) params.getOrDefault("currentPage", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 10);
+        QueryWrapper<OrgGroup> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, OrgGroup.class);
+        IPage<OrgGroup> ipage = orgGroupMapper.selectPage((Page<OrgGroup>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<OrgGroupDto> list = ipage.getRecords().stream().map(org -> entity2Dto(org)).collect(Collectors.toList());
+        System.out.println("ipage total:>>" + ipage.getTotal());
+        return new BaseListDto<OrgGroupDto>(list, (int) ipage.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) {
+
+    }
+
+    @Override
+    public OrgGroupDto selectById(Long id) {
+        return null;
+    }
+
+    @Override
+    public OrgGroupDto entity2Dto(Object source) {
+        OrgGroupDto newDto = new OrgGroupDto();
+        OrgGroup temp = OrgGroup.class.cast(source);
+        BeanUtils.copyProperties(temp, newDto);
+        return newDto;
+    }
+}

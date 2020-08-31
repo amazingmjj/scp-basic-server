@@ -1,0 +1,133 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.CompanyContactDto;
+import org.xy.api.mapper.CommMapper;
+import org.xy.api.utils.DaoUtil;
+import org.xy.api.utils.StringUtil;
+import org.zhd.basic.entity.CompanyContact;
+import org.zhd.basic.mapper.CompanyContactMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 往来单位(客户)联系人业务层
+ *
+ * @author samy
+ */
+@Service
+public class CompanyContactService implements BaseService<CompanyContactDto, Long> {
+
+    @Autowired
+    private CompanyContactMapper companyContactMapper;
+
+    @Autowired
+    private CommMapper commMapper;
+
+    @Override
+    public CompanyContactDto saveOrUpdate(CompanyContactDto model) throws Exception {
+        // FIXME DO SAVE ACTION
+        String msg = checkCompanyContact(model);
+        if (StringUtil.isNotEmpty(msg)){
+            throw new Exception(msg);
+        }
+
+        CompanyContact retCompanyContact = new CompanyContact();
+        BeanUtils.copyProperties(model,retCompanyContact);
+        //新增
+        if (StringUtil.isEmpty(model.getCode())){
+            String maxCode = commMapper.maxCode("code","t_company_contact");
+            String code = String.format("%06d", (maxCode == null ? 1 : Integer.parseInt(maxCode) + 1));
+            retCompanyContact.setCode(code);
+            companyContactMapper.insert(retCompanyContact);
+        }else {//修改
+            CompanyContact oldCompanyContact = this.selectByCode(model.getCode());
+            if (oldCompanyContact==null||oldCompanyContact.getId().equals(model.getId())){
+                companyContactMapper.updateById(retCompanyContact);
+            }else {
+                throw new Exception("更新失败");
+            }
+        }
+        return this.entity2Dto(retCompanyContact);
+    }
+
+    @Override
+    public BaseListDto<CompanyContactDto> selectPage(Map<String, Object> params) throws Exception {
+        // FIXME DO SELECTPAGE ACTION
+        int currentPage = Integer.parseInt(params.getOrDefault("currentPage", 1).toString());
+        int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+        QueryWrapper<CompanyContact> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, CompanyContact.class);
+        IPage<CompanyContact> pages = companyContactMapper.selectPage((Page<CompanyContact>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<CompanyContactDto> list = pages.getRecords().stream().map(entity -> entity2Dto(entity)).collect(Collectors.toList());
+        return new BaseListDto<CompanyContactDto>(list, (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        companyContactMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public CompanyContactDto selectById(Long id) throws Exception {
+        CompanyContact model = companyContactMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public CompanyContactDto entity2Dto(Object source) {
+        if (source == null) {
+            return null;
+        }
+        // FIXME CHANGE VALUE IN FACT REQUIREMENT
+        CompanyContactDto dto = new CompanyContactDto();
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public CompanyContactDto selectByCompanyMainContact(String companyCode) {
+        QueryWrapper<CompanyContact> qw = new QueryWrapper<>();
+        qw.eq("company_code", companyCode);
+        qw.eq("main_mark", 1);
+        CompanyContact companyContact = companyContactMapper.selectOne(qw);
+        return entity2Dto(companyContact);
+    }
+
+    public CompanyContact selectByCode(String code) throws Exception{
+        QueryWrapper<CompanyContact> qw = new QueryWrapper<>();
+        qw.eq("code", code);
+        return companyContactMapper.selectOne(qw);
+    }
+
+    public Boolean checkCompanyContactName(CompanyContactDto model){
+        QueryWrapper<CompanyContact> qw = new QueryWrapper<>();
+        qw.eq("name",model.getName());
+        CompanyContact oldCompanyContact = companyContactMapper.selectOne(qw);
+        return !(model.getId() == null && oldCompanyContact == null || (null!=model.getId() && (oldCompanyContact == null || oldCompanyContact.getId().equals(model.getId()))));
+    }
+
+    private String checkCompanyContact(CompanyContactDto model) throws Exception{
+        String msg = "";
+
+        if (StringUtil.isEmpty(model.getName())){
+            msg +="单位名称为空，";
+        }
+        if (checkCompanyContactName(model)){
+            msg +="单位名称不能重复，";
+        }
+
+        if (StringUtil.isNotEmpty(msg)){
+            msg = msg.substring(0,msg.length()-1);
+        }
+        return msg;
+    }
+}

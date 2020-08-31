@@ -1,0 +1,76 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.OrgDto;
+import org.zhd.basic.entity.Org;
+import org.zhd.basic.mapper.OrgMapper;
+import org.xy.api.utils.DaoUtil;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * 机构业务层
+ *
+ * @author samy
+ */
+@Service
+public class OrgService implements BaseService<OrgDto, Long> {
+
+    @Autowired
+    private OrgMapper orgMapper;
+
+    @Override
+    public OrgDto saveOrUpdate(OrgDto model) throws Exception {
+        // FIXME DO SAVE ACTION
+        return null;
+    }
+
+    @Override
+    public BaseListDto<OrgDto> selectPage(Map<String, Object> params) throws Exception {
+        // FIXME DO SELECTPAGE ACTION
+        int currentPage = Integer.parseInt(params.getOrDefault("currentPage", 1).toString());
+        int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+        QueryWrapper<Org> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, Org.class);
+        IPage<Org> pages = orgMapper.selectPage((Page<Org>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<OrgDto> list = pages.getRecords().stream().map(entity -> entity2Dto(entity)).collect(Collectors.toList());
+        return new BaseListDto<OrgDto>(list, (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        orgMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public OrgDto selectById(Long id) throws Exception {
+        Org model = orgMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public OrgDto entity2Dto(Object source) {
+        if (source == null) {
+            return null;
+        }
+        // FIXME CHANGE VALUE IN FACT REQUIREMENT
+        OrgDto dto = new OrgDto();
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public List<OrgDto> selectByCodes(List<String> codes) {
+        QueryWrapper<Org> qw = new QueryWrapper<>();
+        qw.in("org_code", codes);
+        List<Org> orgList = orgMapper.selectList(qw);
+        return orgList.stream().map(this::entity2Dto).collect(Collectors.toList());
+    }
+}

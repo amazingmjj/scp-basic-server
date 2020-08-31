@@ -1,0 +1,45 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import freemarker.ext.servlet.IncludePage;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import org.zhd.basic.entity.Goods;
+
+import java.util.List;
+
+/**
+ * 物资数据层
+ *
+ * @author samy
+ */
+public interface GoodsMapper extends BaseMapper<Goods> {
+    /**
+     * 集团物资品名大类
+     *
+     * @param memberCode
+     * @return
+     */
+    @Select("select DISTINCT(PNTREE_NAME) from BASIC_GOODSCODE where member_code=#{memberCode}")
+    List<String> parentNames(String memberCode);
+
+    /**
+     * 品名大类下的小类
+     */
+    @Select("select distinct(PARTSNAME_NAME) from BASIC_GOODSCODE where member_code=#{memberCode} and pntree_name=#{parentName}")
+    List<String> subNames(String memberCode, String parentName);
+
+    /**
+     * 获取不相同物资列表
+     *
+     * @param page
+     * @param memberCode
+     * @param name
+     * @return
+     */
+    @Select("SELECT max(goodscode_id), PARTSNAME_NAME, GOODS_SPEC, GOODS_MATERIAL, PRODUCTAREA_NAME, PNTREE_NAME FROM BASIC_GOODSCODE WHERE MEMBER_CODE = #{memberCode} AND PARTSNAME_NAME LIKE CONCAT(#{name}, '%') GROUP BY PARTSNAME_NAME, GOODS_SPEC, GOODS_MATERIAL, PRODUCTAREA_NAME, PNTREE_NAME HAVING count(PARTSNAME_NAME) > 1")
+    @ResultMap("goodsPojo")
+    IPage<Goods> selectGoods(Page<Goods> page, String memberCode, String name);
+}

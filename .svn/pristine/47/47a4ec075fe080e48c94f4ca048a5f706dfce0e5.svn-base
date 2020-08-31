@@ -1,0 +1,73 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.DataDictDto;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.DataDict;
+import org.zhd.basic.mapper.DataDictMapper;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * @author samy
+ */
+@Service
+public class DataDictService implements BaseService<DataDictDto, Long> {
+    @Autowired
+    private DataDictMapper dataDictMapper;
+
+
+    @Override
+    public DataDictDto saveOrUpdate(DataDictDto model) throws Exception {
+        return null;
+    }
+
+    @Override
+    public BaseListDto<DataDictDto> selectPage(Map<String, Object> params) throws Exception {
+        int currentPage = (int) params.getOrDefault("currentPage", 1);
+        int pageSize = (int) params.getOrDefault("pageSize", 10);
+        QueryWrapper<DataDict> qw = new QueryWrapper<>();
+        System.out.println("className:>>" + params.get("className"));
+        DaoUtil.parseGenericQueryWrapper(qw, params, DataDict.class);
+        IPage<DataDict> pages = dataDictMapper.selectPage((Page<DataDict>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        List<DataDictDto> list = pages.getRecords().stream().map(org -> entity2Dto(org)).collect(Collectors.toList());
+        System.out.println("ipage total:>>" + pages.getTotal());
+        return new BaseListDto<DataDictDto>(list, (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        dataDictMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public DataDictDto selectById(Long id) throws Exception {
+        return entity2Dto(dataDictMapper.selectById(id));
+    }
+
+    @Override
+    public DataDictDto entity2Dto(Object source) {
+        if (source == null) {
+            return null;
+        }
+        DataDictDto dto = new DataDictDto();
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public BaseListDto<DataDictDto> selectByClassName(String className) {
+        List<DataDict> list = dataDictMapper.selectByClassName(className);
+        return new BaseListDto<DataDictDto>(list.stream().map(this::entity2Dto).collect(Collectors.toList()), list.size());
+    }
+
+}

@@ -1,0 +1,17 @@
+-- 集团表序列oracle
+create sequence basic_org_group_seq increment by 1 start with 1 nocycle nocache;
+
+--集团orgGroup
+create sequence t_org_group_seq increment by 1 start with 1 nocycle nocache;
+
+--组织org
+create sequence t_org_seq increment by 1 start with 1 nocycle nocache;
+
+--员工
+create sequence t_employee_seq increment by 1 start with 1 nocycle nocache;
+
+-- 部门
+create sequence t_dpt_seq increment by 1 start with 1 nocycle nocache;
+
+-- 产地
+create sequence t_area_seq increment by 1 start with 1 nocycle nocache;

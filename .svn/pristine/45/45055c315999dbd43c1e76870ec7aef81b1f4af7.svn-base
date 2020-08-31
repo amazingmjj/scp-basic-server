@@ -1,0 +1,48 @@
+package org.zhd.basic.controller;
+
+import oracle.jdbc.proxy.annotation.Post;
+import org.springframework.web.bind.annotation.*;
+import org.xy.api.dpi.basic.CompanyContactDpi;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.CompanyContactDto;
+import org.xy.api.utils.ApiUtil;
+import org.xy.api.utils.DaoUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+
+/**
+ * 往来单位(客户)联系人 控制层
+ *
+ * @author samy
+ */
+@RestController
+public class CompanyContactController extends BaseController implements CompanyContactDpi {
+
+    @PostMapping("api/basic/companyContact")
+    public Map<String, Object> saveOrUpdate(CompanyContactDto model) throws Exception {
+        // FIXME DO SAVEORUPDATE ACTION
+        return null;
+    }
+
+    @PostMapping("api/basic/companyContact/list")
+    public BaseListDto<CompanyContactDto> selectPage(HttpServletRequest request) throws Exception {
+        return companyContactService.selectPage(DaoUtil.requestMap2Map(request));
+    }
+
+    @Override
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        companyContactService.delete(ids);
+        return ApiUtil.responseCode();
+    }
+
+    @Override
+    public Map<String, Object> selectById(Long id) throws Exception {
+        return ApiUtil.responseDto(companyContactService.selectById(id));
+    }
+
+    @GetMapping("api/basic/companyContact/main")
+    public Map<String, Object> getMainLink(String companyCode) throws Exception {
+        return ApiUtil.responseDto(companyContactService.selectByCompanyMainContact(companyCode));
+    }
+}

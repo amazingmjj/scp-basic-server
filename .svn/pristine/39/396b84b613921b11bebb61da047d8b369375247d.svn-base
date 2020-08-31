@@ -1,0 +1,101 @@
+package org.zhd.basic.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xy.api.dpi.BaseService;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.EmployeeDto;
+import org.xy.api.mapper.CommMapper;
+import org.xy.api.utils.DaoUtil;
+import org.zhd.basic.entity.Employee;
+import org.zhd.basic.mapper.EmployeeMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * 往来单位(客户)联系人业务层
+ *
+ * @author samy
+ */
+@Service
+public class EmployeeService implements BaseService<EmployeeDto, Long> {
+
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private CommMapper commMapper;
+
+    @Override
+    public EmployeeDto saveOrUpdate(EmployeeDto model) throws Exception {
+        if (model.getName() == null) {
+            throw new Exception("姓名不能为空");
+        }
+        if (model.getOrgCodes() == null) {
+            throw new Exception("机构不能为空");
+        }
+        if (model.getDptCode() == null) {
+            throw new Exception("部门不能为空");
+        }
+        Employee newEmployee = new Employee();
+        BeanUtils.copyProperties(model, newEmployee);
+        if (model.getCode() == null) {
+            // 新增
+            String nextCode = commMapper.maxCode("code", "t_employee");
+            Integer newCode = Integer.parseInt(nextCode == null ? "0" : nextCode) + 1;
+            newEmployee.setCode(String.format("%06d", newCode));
+            employeeMapper.insert(newEmployee);
+        } else {
+            // 修改
+            Employee employee = employeeMapper.selectByCode(model.getCode());
+            if (employee.getId().equals(model.getId())) {
+                BeanUtils.copyProperties(newEmployee, employee, "id", "code", "createAt", "updateAt");
+                employeeMapper.updateById(employee);
+            } else {
+                throw new Exception("更新失败");
+            }
+        }
+        return this.entity2Dto(newEmployee);
+    }
+
+    @Override
+    public BaseListDto<EmployeeDto> selectPage(Map<String, Object> params) throws Exception {
+        int currentPage = Integer.parseInt(params.getOrDefault("currentPage", 1).toString());
+        int pageSize = Integer.parseInt(params.getOrDefault("pageSize", 10).toString());
+        QueryWrapper<EmployeeDto> qw = new QueryWrapper<>();
+        DaoUtil.parseGenericQueryWrapper(qw, params, EmployeeDto.class);
+        IPage<EmployeeDto> pages = employeeMapper.selectAllPg((Page<Employee>) DaoUtil.queryPage(currentPage, pageSize), qw);
+        return new BaseListDto<EmployeeDto>(pages.getRecords(), (int) pages.getTotal());
+    }
+
+    @Override
+    public void delete(List<Long> ids) throws Exception {
+        employeeMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public EmployeeDto selectById(Long id) throws Exception {
+        Employee model = employeeMapper.selectById(id);
+        return entity2Dto(model);
+    }
+
+    @Override
+    public EmployeeDto entity2Dto(Object source) {
+        if (source == null) {
+            return null;
+        }
+        EmployeeDto dto = new EmployeeDto();
+        BeanUtils.copyProperties(source, dto);
+        return dto;
+    }
+
+    public EmployeeDto selectDtoByCode(String code) {
+        return employeeMapper.selectDtoByCode(code);
+    }
+}

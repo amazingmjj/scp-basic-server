@@ -1,0 +1,2 @@
+-- 集团表序列oracle
+create sequence basic_org_group_sequence increment by 1 start with 1 nocycle nocache;

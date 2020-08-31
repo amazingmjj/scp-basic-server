@@ -1,0 +1,55 @@
+package org.zhd.basic.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.xy.api.dpi.basic.GoodsDpi;
+import org.xy.api.dto.BaseListDto;
+import org.xy.api.dto.basic.GoodsDto;
+import org.xy.api.utils.ApiUtil;
+import org.xy.api.utils.DaoUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+
+/**
+ * 物资 控制层
+ *
+ * @author samy
+ */
+@RestController
+@RequestMapping("api/basic/goods")
+public class GoodsController extends BaseController implements GoodsDpi {
+
+    @Override
+    public Map<String, Object> saveOrUpdate(GoodsDto model) throws Exception {
+        // FIXME DO SAVEORUPDATE ACTION
+        return null;
+    }
+
+    @Override
+    public BaseListDto<GoodsDto> selectPage(HttpServletRequest request) throws Exception {
+        return goodsService.selectPage(DaoUtil.requestMap2Map(request));
+    }
+
+    @Override
+    public Map<String, Object> delete(List<Long> ids) throws Exception {
+        goodsService.delete(ids);
+        return ApiUtil.responseCode();
+    }
+
+    @Override
+    public Map<String, Object> selectById(Long id) throws Exception {
+        return ApiUtil.responseDto(goodsService.selectById(id));
+    }
+
+    @GetMapping("parentTree")
+    public Map<String, Object> parentTree(String memberCode) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("list", goodsService.parentTree(memberCode));
+        return ApiUtil.responseCode(result);
+    }
+
+    @PostMapping("distinct")
+    public BaseListDto<GoodsDto> selectDistinctGoods() {
+        return goodsService.selectGoods(DaoUtil.requestMap2Map(request));
+    }
+}

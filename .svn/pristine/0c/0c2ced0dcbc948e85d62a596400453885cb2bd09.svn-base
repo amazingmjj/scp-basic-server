@@ -1,0 +1,187 @@
+package org.zhd.basic.entity;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.baomidou.mybatisplus.annotation.*;
+import org.xy.api.enums.MarriageEnum;
+import org.xy.api.enums.SexEnum;
+import org.xy.api.enums.StatusEnum;
+
+/**
+ * 往来单位(客户)联系人
+ *
+ * @author samy
+ */
+@Data
+@Entity
+@Table(name = "basic_employee")
+@TableName(value = "basic_employee")
+@KeySequence("basic_employee_seq")
+public class Employee implements Serializable {
+    /**
+     * 序列号
+     */
+    @Id
+    @Column(name = "employee_id")
+    @TableId(value = "employee_id", type = IdType.INPUT)
+    private Long id;
+    /**
+     * 编号
+     */
+    @Column(name = "employee_code")
+    @TableField(value = "employee_code")
+    private String code;
+    /**
+     * 姓名
+     */
+    @Column(name = "employee_name")
+    @TableField(value = "employee_name")
+    private String name;
+    /**
+     * 电话
+     */
+    @Column(name = "employee_phone")
+    @TableField(value = "employee_phone")
+    private String phone;
+    /**
+     * 机构编号(多个用,分割)
+     */
+    private String orgCodes;
+    /**
+     * 机构名称(多个用,分割)
+     */
+    private String orgNames;
+    /**
+     * 部门编号
+     */
+    @Column(name = "dept_code")
+    @TableField(value = "dept_code")
+    private String dptCode;
+    /**
+     * 部门名称
+     */
+    private String dptName;
+    /**
+     * 职位
+     */
+    @Column(name = "employee_job")
+    @TableField(value = "employee_job")
+    private String job;
+    /**
+     * 性别(MALE 男 FEMALE 女 SECRET 保密)
+     */
+    private SexEnum sex;
+    /**
+     * 身份证
+     */
+    @Column(name = "employee_idcard")
+    @TableField(value = "employee_idcard")
+    private String idCard;
+    /**
+     * 籍贯
+     */
+    @Column(name = "employee_native")
+    @TableField(value = "employee_native")
+    private String birthNative;
+    /**
+     * 专业
+     */
+    @Column(name = "employee_specialty")
+    @TableField(value = "employee_specialty")
+    private String professional;
+    /**
+     * 政治面貌
+     */
+    @Column(name = "employee_party")
+    @TableField(value = "employee_party")
+    private String politicalLandscape;
+    /**
+     * 技术职称
+     */
+    @Column(name = "employee_technical")
+    @TableField(value = "employee_technical")
+    private String techTitle;
+    /**
+     * 备注
+     */
+    @Column(name = "employee_remark")
+    @TableField(value = "employee_remark")
+    private String remark;
+    /**
+     * 学历
+     */
+    @Column(name = "employee_degree")
+    @TableField(value = "employee_degree")
+    private String edu;
+    /**
+     * 生日
+     */
+    @Column(name = "employee_birthday")
+    @TableField(value = "employee_birthday")
+    private Date birthday;
+    /**
+     * 进入公司时间
+     */
+    @Column(name = "employee_joindate")
+    @TableField(value = "employee_joindate")
+    private Date entryDate;
+    /**
+     * 居住地址
+     */
+    @Column(name = "employee_addr")
+    @TableField(value = "employee_addr")
+    private String address;
+    /**
+     * 员工类别
+     */
+    @Column(name = "employee_class")
+    @TableField(value = "employee_class")
+    private String category;
+    /**
+     * 状态(ENABLED 启用 DISABLED 停用 FROZON 冻结)
+     */
+    private StatusEnum status;
+    /**
+     * 手机
+     */
+    @Column(name = "employee_mobile")
+    @TableField(value = "employee_mobile")
+    private String mobile;
+    /**
+     * 邮件
+     */
+    @Column(name = "employee_email")
+    @TableField(value = "employee_email")
+    private String email;
+    /**
+     * 工种名称
+     */
+    @Column(name = "worktype_name")
+    @TableField(value = "worktype_name")
+    private String workTypeName;
+    /**
+     * 婚姻
+     */
+    private MarriageEnum marriage;
+    /**
+     * 集团编号
+     */
+    private String memberCode;
+    /**
+     * 创建时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Date createAt;
+    /**
+     * 更新时间(系统自动记录)
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateAt;
+}

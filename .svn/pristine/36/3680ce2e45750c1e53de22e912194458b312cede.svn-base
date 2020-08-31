@@ -1,0 +1,12 @@
+package org.zhd.basic.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.zhd.basic.entity.CompanyContact;
+
+/**
+ * 往来单位(客户)联系人数据层
+ *
+ * @author samy
+ */
+public interface CompanyContactMapper extends BaseMapper<CompanyContact> {
+}
